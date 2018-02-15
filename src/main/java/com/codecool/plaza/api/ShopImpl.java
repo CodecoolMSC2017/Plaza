@@ -1,12 +1,13 @@
-package com.codecool.plaza.api;
+package main.java.com.codecool.plaza.api;
 
 import java.util.List;
+import java.util.Map;
 
 public class ShopImpl implements Shop {
     private String name;
     private String owner;
     private boolean open;
-    private Map<Long, ShopImpl.ShopEntryImpl> product;
+    private Map<Long, ShopImplEntry> product;
 
     public String getName(){
         return name;
@@ -29,27 +30,52 @@ public class ShopImpl implements Shop {
     }
 
     public Product findByName(String name) throws NoSuchProductException, ShopIsClosedException {
-        for (Product prod : product) {
-            if (prod.getName().equals(name)) {
-                return prod;
+        for (long i=0; i<product.size();i++) {
+            if (product.get(i).getProduct().getName().equals(name)) {
+                return product.get(i).getProduct();
             }
         }
         return null;
     }
 
     public boolean hasProduct(long barcode) throws ShopIsClosedException{
-
+        for (long i=0; i<product.size();i++) {
+            if (product.get(i).getProduct().getBarcode() == barcode) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public void addNewProduct(Product product, int quantity, float price) throws ProductAlreadyExistsException, ShopIsClosedException;
+    public void addNewProduct(Product product, int quantity, float price) throws ProductAlreadyExistsException, ShopIsClosedException {
+        this.product.put(Long.valueOf((this.product.size())+1), new ShopImplEntry(product, quantity, price))
+    }
 
-    public void addProduct(long barcode, int quantity) throws NoSuchProductException, ShopIsClosedException;
+    public void addProduct(long barcode, int quantity) throws NoSuchProductException, ShopIsClosedException {
+        for (long i=0; i<product.size();i++) {
+            if (product.get(i).getProduct().getBarcode() == barcode) {
+                product.get(i).increaseQuantity(quantity);
+            }
+        }
+    }
 
-    public Product buyProduct(long barcode) throws NoSuchProductException, OutOfStockException, ShopIsClosedException;
+    public Product buyProduct(long barcode) throws NoSuchProductException, OutOfStockException, ShopIsClosedException {
+        for (long i=0; i<product.size();i++) {
+            if (product.get(i).getProduct().getBarcode() == barcode) {
+                product.get(i).decreaseQuantity(1);
+            }
+        }
+    }
 
-    public List<Product> buyProducts (long barcode, int quantity) throws NoSuchProductException, OutOfStockException, ShopIsClosedException;
+    public List<Product> buyProducts (long barcode, int quantity) throws NoSuchProductException, OutOfStockException, ShopIsClosedException {
+        for (long i=0; i<product.size();i++) {
+            if (product.get(i).getProduct().getBarcode() == barcode) {
+                product.get(i).decreaseQuantity(quantity);
+            }
+        }
+    }
 
-    public String toString();
+    public String toString() {}
 
     class ShopImplEntry {
         private Product product;

@@ -1,8 +1,9 @@
-package com.codecool.plaza.api;
+package main.java.com.codecool.plaza.api;
 
 public abstract class Product {
     protected long barcode;
     protected String manufacturer;
+    protected String name;
 
     protected Product(long barcode, String manufacturer) {
         this.barcode = barcode;
@@ -16,6 +17,8 @@ public abstract class Product {
     public String getManufacturer(){
         return manufacturer;
     }
+
+    public String getName() { return name; }
 
     public String toString(){
         return "Bakker";

@@ -1,4 +1,4 @@
-package com.codecool.plaza.api;
+package main.java.com.codecool.plaza.api;
 
 public class ClothingProduct extends Product {
     private String material;

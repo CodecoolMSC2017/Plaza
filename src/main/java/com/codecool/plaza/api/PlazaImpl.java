@@ -1,13 +1,15 @@
-package com.codecool.plaza.api;
+package main.java.com.codecool.plaza.api;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlazaImpl implements Plaza {
+    private String name;
     private List<Shop> shops;
     private boolean open;
 
-    public PlazaImpl(){
+    public PlazaImpl(String name){
+        this.name = name;
         this.shops = new ArrayList<Shop>();
     }
 
@@ -44,8 +46,9 @@ public class PlazaImpl implements Plaza {
         open = false;
     }
 
+    public String getName() { return name; }
+
     public String toString(){
         return "Bakker",
     }
 }
-

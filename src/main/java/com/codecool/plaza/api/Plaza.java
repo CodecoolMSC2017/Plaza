@@ -1,4 +1,6 @@
-package com.codecool.plaza.api;
+package main.java.com.codecool.plaza.api;
+
+import java.util.List;
 
 public interface Plaza {
 
