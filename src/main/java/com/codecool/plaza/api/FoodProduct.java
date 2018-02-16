@@ -20,8 +20,14 @@ public class FoodProduct extends Product {
         return calories;
     }
 
-    public String toString(){
-        return "Bakker";
+    @Override
+    public String toString() {
+        return "FoodProduct{" +
+                "calories=" + calories +
+                ", bestBefore=" + bestBefore +
+                ", barcode=" + barcode +
+                ", manufacturer='" + manufacturer + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
-
 }

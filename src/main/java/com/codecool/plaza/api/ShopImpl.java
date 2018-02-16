@@ -30,15 +30,21 @@ public class ShopImpl implements Shop {
     }
 
     public Product findByName(String name) throws NoSuchProductException, ShopIsClosedException {
+        if (!open) {
+            throw new ShopIsClosedException("Sorry, " + this.getName() + " is closed.");
+        }
         for (long i=0; i<product.size();i++) {
             if (product.get(i).getProduct().getName().equals(name)) {
                 return product.get(i).getProduct();
             }
         }
-        return null;
+        throw new NoSuchProductException("Sorry, this product is not available here");
     }
 
     public boolean hasProduct(long barcode) throws ShopIsClosedException{
+        if (!open) {
+            throw new ShopIsClosedException("Sorry, " + this.getName() + " is closed.");
+        }
         for (long i=0; i<product.size();i++) {
             if (product.get(i).getProduct().getBarcode() == barcode) {
                 return true;
@@ -48,34 +54,68 @@ public class ShopImpl implements Shop {
     }
 
     public void addNewProduct(Product product, int quantity, float price) throws ProductAlreadyExistsException, ShopIsClosedException {
-        this.product.put(Long.valueOf((this.product.size())+1), new ShopImplEntry(product, quantity, price))
+        if (!open) {
+            throw new ShopIsClosedException("Sorry, " + this.getName() + " is closed.");
+        }
+        for (ShopImplEntry entry : this.product.values()) {
+            if (entry.getProduct().equals(product)) {
+                throw new ProductAlreadyExistsException("Shop already has this product!");
+            }
+        }
+        this.product.put(Long.valueOf((this.product.size())+1), new ShopImplEntry(product, quantity, price));
     }
 
     public void addProduct(long barcode, int quantity) throws NoSuchProductException, ShopIsClosedException {
+        if (!open) {
+            throw new ShopIsClosedException("Sorry, " + this.getName() + " is closed.");
+        }
         for (long i=0; i<product.size();i++) {
             if (product.get(i).getProduct().getBarcode() == barcode) {
                 product.get(i).increaseQuantity(quantity);
             }
         }
+        throw new NoSuchProductException("Product is not available in this shop.");
     }
 
     public Product buyProduct(long barcode) throws NoSuchProductException, OutOfStockException, ShopIsClosedException {
+        if (!open) {
+            throw new ShopIsClosedException("Sorry, " + this.getName() + " is closed.");
+        }
         for (long i=0; i<product.size();i++) {
             if (product.get(i).getProduct().getBarcode() == barcode) {
+                if (product.get(i).getQuantity() == 0) {
+                    throw new OutOfStockException("Sorry, there is no more " + product.get(i).getProduct().getName() + " available.");
+                }
                 product.get(i).decreaseQuantity(1);
             }
         }
+        throw new NoSuchProductException("Product is not available in this shop.");
     }
 
     public List<Product> buyProducts (long barcode, int quantity) throws NoSuchProductException, OutOfStockException, ShopIsClosedException {
+        if (!open) {
+            throw new ShopIsClosedException("Sorry, " + this.getName() + " is closed.");
+        }
         for (long i=0; i<product.size();i++) {
             if (product.get(i).getProduct().getBarcode() == barcode) {
+                if (product.get(i).getQuantity() < quantity) {
+                    throw new OutOfStockException("Sorry, there is not enough " + product.get(i).getProduct().getName() + " available.");
+                }
                 product.get(i).decreaseQuantity(quantity);
             }
         }
+        throw new NoSuchProductException("Product is not available in this shop.");
     }
 
-    public String toString() {}
+    @Override
+    public String toString() {
+        return "ShopImpl{" +
+                "name='" + name + '\'' +
+                ", owner='" + owner + '\'' +
+                ", open=" + open +
+                ", product=" + product +
+                '}';
+    }
 
     class ShopImplEntry {
         private Product product;

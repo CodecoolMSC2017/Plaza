@@ -20,7 +20,12 @@ public abstract class Product {
 
     public String getName() { return name; }
 
-    public String toString(){
-        return "Bakker";
+    @Override
+    public String toString() {
+        return "Product{" +
+                "barcode=" + barcode +
+                ", manufacturer='" + manufacturer + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

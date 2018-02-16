@@ -18,7 +18,14 @@ public class ClothingProduct extends Product {
         return type;
     }
 
+    @Override
     public String toString() {
-        return "Bakker";
+        return "ClothingProduct{" +
+                "material='" + material + '\'' +
+                ", type='" + type + '\'' +
+                ", barcode=" + barcode +
+                ", manufacturer='" + manufacturer + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

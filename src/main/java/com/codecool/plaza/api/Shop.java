@@ -4,27 +4,27 @@ import java.util.List;
 
 public interface Shop {
 
-    public String getName();
+    String getName();
 
-    public String getOwner();
+    String getOwner();
 
-    public boolean isOpen();
+    boolean isOpen();
 
-    public void open();
+    void open();
 
-    public void close();
+    void close();
 
-    public Product findByName(String name) throws NoSuchProductException, ShopIsClosedException;
+    Product findByName(String name) throws NoSuchProductException, ShopIsClosedException;
 
-    public boolean hasProduct(long barcode) throws ShopIsClosedException;
+    boolean hasProduct(long barcode) throws ShopIsClosedException;
 
-    public void addNewProduct(Product product, int quantity, float price) throws ProductAlreadyExistsException, ShopIsClosedException;
+    void addNewProduct(Product product, int quantity, float price) throws ProductAlreadyExistsException, ShopIsClosedException;
 
-    public void addProduct(long barcode, int quantity) throws NoSuchProductException, ShopIsClosedException;
+    void addProduct(long barcode, int quantity) throws NoSuchProductException, ShopIsClosedException;
 
-    public Product buyProduct(long barcode) throws NoSuchProductException, OutOfStockException, ShopIsClosedException;
+    Product buyProduct(long barcode) throws NoSuchProductException, OutOfStockException, ShopIsClosedException;
 
-    public List<Product> buyProducts (long barcode, int quantity) throws NoSuchProductException, OutOfStockException, ShopIsClosedException;
+    List<Product> buyProducts (long barcode, int quantity) throws NoSuchProductException, OutOfStockException, ShopIsClosedException;
 
-    public String toString();
+    String toString();
 }
