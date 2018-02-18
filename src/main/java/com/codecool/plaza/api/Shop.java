@@ -14,6 +14,8 @@ public interface Shop {
 
     void close();
 
+    public float findPrice(Product prod) throws NoSuchProductException, ShopIsClosedException;
+
     Product findByName(String name) throws NoSuchProductException, ShopIsClosedException;
 
     boolean hasProduct(long barcode) throws ShopIsClosedException;

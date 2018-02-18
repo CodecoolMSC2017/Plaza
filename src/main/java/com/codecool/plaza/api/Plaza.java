@@ -4,19 +4,19 @@ import java.util.List;
 
 public interface Plaza {
 
-    List<Shop> getShops() throws PlazaIsClosedException;
+    public List<Shop> getShops() throws PlazaIsClosedException;
 
-    void addShop(Shop shop) throws ShopAlreadyExistsException, PlazaIsClosedException;
+    public void addShop(Shop shop) throws ShopAlreadyExistsException, PlazaIsClosedException;
 
-    void removeShop(Shop shop) throws NoSuchShopException, PlazaIsClosedException;
+    public void removeShop(Shop shop) throws NoSuchShopException, PlazaIsClosedException;
 
-    Shop findShopByName(String name) throws NoSuchShopException, PlazaIsClosedException;
+    public Shop findShopByName(String name) throws NoSuchShopException, PlazaIsClosedException;
 
-    boolean isOpen();
+    public boolean isOpen();
 
-    void open();
+    public void open();
 
-    void close();
+    public void close();
 
-    String toString();
+    public String toString();
 }

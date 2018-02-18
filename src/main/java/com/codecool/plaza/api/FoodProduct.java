@@ -4,9 +4,9 @@ import java.util.Date;
 
 public class FoodProduct extends Product {
     private int calories;
-    private Date bestBefore;
+    private String bestBefore;
 
-    public FoodProduct(long barcode, String manufacturer, int calories, Date bestBefore){
+    public FoodProduct(long barcode, String manufacturer, int calories, String bestBefore){
         super(barcode, manufacturer);
         this.calories = calories;
         this.bestBefore = bestBefore;

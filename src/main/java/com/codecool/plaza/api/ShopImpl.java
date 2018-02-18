@@ -9,6 +9,11 @@ public class ShopImpl implements Shop {
     private boolean open;
     private Map<Long, ShopImplEntry> product;
 
+    public ShopImpl(String name, String owner) {
+        this.name = name;
+        this.owner = owner;
+    }
+
     public String getName(){
         return name;
     }
@@ -27,6 +32,18 @@ public class ShopImpl implements Shop {
 
     public void close(){
         open = false;
+    }
+
+    public float findPrice(Product prod) throws NoSuchProductException, ShopIsClosedException {
+        if (!open) {
+            throw new ShopIsClosedException("Sorry, " + this.getName() + " is closed.");
+        }
+        for (long i=0; i<product.size();i++) {
+            if (product.get(i).getProduct().equals(prod)) {
+                return product.get(i).getPrice();
+            }
+        }
+        throw new NoSuchProductException("Sorry, this product is not available here");
     }
 
     public Product findByName(String name) throws NoSuchProductException, ShopIsClosedException {
@@ -109,12 +126,12 @@ public class ShopImpl implements Shop {
 
     @Override
     public String toString() {
-        return "ShopImpl{" +
+        return "Shop{" +
                 "name='" + name + '\'' +
                 ", owner='" + owner + '\'' +
                 ", open=" + open +
                 ", product=" + product +
-                '}';
+                "}\n";
     }
 
     class ShopImplEntry {
@@ -128,35 +145,35 @@ public class ShopImpl implements Shop {
             this.price = price;
         }
 
-        public Product getProduct() {
+        private Product getProduct() {
             return product;
         }
 
-        public void setProduct(Product product) {
+        private void setProduct(Product product) {
             this.product = product;
         }
 
-        public int getQuantity() {
+        private int getQuantity() {
             return quantity;
         }
 
-        public void setQuantity(int quantity) {
+        private void setQuantity(int quantity) {
             this.quantity = quantity;
         }
 
-        public void increaseQuantity(int amount) {
+        private void increaseQuantity(int amount) {
             quantity = quantity + amount;
         }
 
-        public void decreaseQuantity(int amount) {
+        private void decreaseQuantity(int amount) {
             quantity = quantity - amount;
         }
 
-        public float getPrice() {
+        private float getPrice() {
             return price;
         }
 
-        public void setPrice(int price) {
+        private void setPrice(int price) {
             this.price = price;
         }
 

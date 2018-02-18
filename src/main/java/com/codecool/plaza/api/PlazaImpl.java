@@ -11,6 +11,7 @@ public class PlazaImpl implements Plaza {
     public PlazaImpl(String name) {
         this.name = name;
         this.shops = new ArrayList<Shop>();
+        this.open=false;
     }
 
     public List<Shop> getShops() throws PlazaIsClosedException {
@@ -71,8 +72,8 @@ public class PlazaImpl implements Plaza {
     public String toString() {
         return "PlazaImpl{" +
                 "name='" + name + '\'' +
-                ", shops=" + shops +
-                ", open=" + open +
+                ",\nshops=" + shops +
+                "open=" + open +
                 '}';
     }
 }
